@@ -10,7 +10,7 @@
                             <h4 class="card-title">{{ __('Séries') }}</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
+                            <a href="{{ route('serie.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
                         </div>
                     </div>
                 </div>
@@ -34,19 +34,17 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        @if (auth()->serie()->id != $serie->id)
-                                                            <form action="{{ route('serie.destroy', $serie) }}" method="post">
-                                                                @csrf
-                                                                @method('delete')
 
-                                                                <a class="dropdown-item" href="{{ route('serie.edit', $serie) }}">{{ __('Editar') }}</a>
-                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja excluir o registro?") }}') ? this.parentElement.submit() : ''">
-                                                                            {{ __('Excluir') }}
-                                                                </button>
-                                                            </form>
-                                                        @else
-                                                            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Editar') }}</a>
-                                                        @endif
+                                                        <form action="{{ route('serie.destroy', $serie) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <a class="dropdown-item" href="{{ route('serie.edit', $serie) }}">{{ __('Editar') }}</a>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja excluir o registro?") }}') ? this.parentElement.submit() : ''">
+                                                                        {{ __('Excluir') }}
+                                                            </button>
+                                                        </form>
+
                                                     </div>
                                                 </div>
                                         </td>

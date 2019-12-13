@@ -33,9 +33,14 @@ class SerieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Serie $model)
     {
-        //
+        $exists = $model::where('name',$request->input('name'));
+        if($exists->count() > 0){
+            return redirect()->route('serie.create')->withStatus(['error' => 'Já existe um registro com esta descrição.']);
+        }
+        $model->create($request->except('_token'));
+        return redirect()->route('serie.index')->withStatus(['success' => 'Registro criado com sucesso!']);
     }
 
     /**
@@ -57,7 +62,7 @@ class SerieController extends Controller
      */
     public function edit(Serie $serie)
     {
-        //
+        return view('series.edit', compact('serie'));
     }
 
     /**
@@ -69,7 +74,9 @@ class SerieController extends Controller
      */
     public function update(Request $request, Serie $serie)
     {
-        //
+        $serie->update($request->except('_token'));
+
+        return redirect()->route('serie.index')->withStatus(['success' => __('Série atualizada com sucesso.')]);
     }
 
     /**
@@ -80,6 +87,8 @@ class SerieController extends Controller
      */
     public function destroy(Serie $serie)
     {
-        //
+        $serie->delete();
+
+        return redirect()->route('serie.index')->withStatus(['success' => __($serie->name.' deletado com sucesso.')]);
     }
 }
