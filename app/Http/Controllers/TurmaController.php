@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Turma;
+use App\Serie;
+use App\Turno;
 use Illuminate\Http\Request;
 
 class TurmaController extends Controller
@@ -14,7 +16,7 @@ class TurmaController extends Controller
      */
     public function index(Turma $model)
     {
-        return view('turmas.index', ['turmas' => $model->paginate(15)]);
+        return view('turmas.index', ['turmas' => $model->with('serie')->with('turno')->paginate(15)]);
     }
 
     /**
@@ -24,7 +26,9 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        //
+        $turnos = Turno::all();
+        $series = Serie::all();
+        return view('turmas.create', compact('turnos'), compact('series'));
     }
 
     /**
@@ -33,9 +37,14 @@ class TurmaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Turma $model)
     {
-        //
+        $exists = $model::where('name',$request->input('name'));
+        if($exists->count() > 0){
+            return redirect()->route('turma.create')->withStatus(['error' => 'Já existe um registro com esta descrição.']);
+        }
+        $model->create($request->except('_token'));
+        return redirect()->route('turma.index')->withStatus(['success' => 'Registro criado com sucesso!']);
     }
 
     /**
@@ -57,7 +66,13 @@ class TurmaController extends Controller
      */
     public function edit(Turma $turma)
     {
-        //
+        $turnos = Turno::all();
+        $series = Serie::all();
+        return view('turmas.edit', [
+            'turma' => $turma,
+            'turnos' => $turnos,
+            'series' => $series
+        ]);
     }
 
     /**
@@ -69,7 +84,9 @@ class TurmaController extends Controller
      */
     public function update(Request $request, Turma $turma)
     {
-        //
+        $turma->update($request->except('_token'));
+
+        return redirect()->route('turma.index')->withStatus(['success' => __('Turma atualizada com sucesso.')]);
     }
 
     /**
@@ -80,6 +97,7 @@ class TurmaController extends Controller
      */
     public function destroy(Turma $turma)
     {
-        //
+        $turma->delete();
+        return redirect()->route('turma.index')->withStatus(['success' => __('Turma '.$turma->name.' deletada com sucesso.')]);
     }
 }

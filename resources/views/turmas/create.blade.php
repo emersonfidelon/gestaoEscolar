@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('User Management'), 'pageSlug' => 'users'])
+@extends('layouts.app', ['page' => __('Cadastrar Turma'), 'pageSlug' => 'turmas'])
 
 @section('content')
     <div class="container-fluid mt--7">
@@ -8,37 +8,39 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Cadastrar usuários') }}</h3>
+                                <h3 class="mb-0">{{ __('Cadastrar Turma') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary">{{ __('Voltar para a listagem') }}</a>
+                                <a href="{{ route('turma.index') }}" class="btn btn-sm btn-primary">{{ __('Voltar') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('user.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('turma.store') }}" autocomplete="off">
                             @csrf
-
-                            <h6 class="heading-small text-muted mb-4">{{ __('Pais . Professores . Administrativo') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Nome') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nome') }}" value="{{ old('name') }}" required autofocus>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Ex.: A') }}" value="{{ old('name') }}" required autofocus>
                                     @include('alerts.feedback', ['field' => 'name'])
                                 </div>
-                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
-                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required>
-                                    @include('alerts.feedback', ['field' => 'email'])
-                                </div>
-                                <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-password">{{ __('Senha') }}</label>
-                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Senha') }}" value="" required>
-                                    @include('alerts.feedback', ['field' => 'password'])
+                                <div class="form-group">
+                                    <label class="form-control-label">{{ __('Série') }}</label>
+                                    <select name="serie_id" required class="form-control" id="">
+                                        <option value="">Selecione uma série</option>
+                                        @foreach ($series as $serie)
+                                            <option value="{{ $serie->id }}">{{ $serie->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Confirmar senha') }}</label>
-                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirmar senha') }}" value="" required>
+                                    <label class="form-control-label">{{ __('Turno') }}</label>
+                                    <select name="turno_id" required class="form-control" id="">
+                                        <option value="">Selecione um turno</option>
+                                        @foreach ($turnos as $turno)
+                                            <option value="{{ $turno->id }}">{{ $turno->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="text-center">
