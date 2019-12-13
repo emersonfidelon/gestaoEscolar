@@ -36,13 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
-    Route::get('turnos', 'TurnoController@index')->name('turno.index');
-
-    Route::get('series', 'SerieController@index')->name('serie.index');
-
-    Route::get('turmas', 'TurmaController@index')->name('turma.index');
-
-    Route::get('alunos', 'AlunoController@index')->name('aluno.index');
-
-    Route::get('matriculas', 'MatriculaController@index')->name('matricula.index');
+    Route::resource('turno', 'TurnoController');
+    Route::resource('serie', 'SerieController');
+    Route::resource('turma', 'TurmaController');
+    Route::resource('aluno', 'AlunoController');
+    Route::resource('matricula', 'MatriculaController');
 });

@@ -24,7 +24,7 @@ class TurnoController extends Controller
      */
     public function create()
     {
-        //
+        return view('turnos.create');
     }
 
     /**
@@ -33,9 +33,14 @@ class TurnoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Turno $model)
     {
-        //
+        $exists = Turno::where('name',$request->input('name'));
+        if($exists->count() > 0){
+            return redirect()->route('turno.create')->withStatus(['error' => 'Já existe um turno com esta descrição.']);
+        }
+        $model->create($request->except('_token'));
+        return redirect()->route('turno.index')->withStatus(['success' => 'Turno criado com sucesso!']);
     }
 
     /**
@@ -57,7 +62,7 @@ class TurnoController extends Controller
      */
     public function edit(Turno $turno)
     {
-        //
+        return view('turnos.edit', compact('turno'));
     }
 
     /**
@@ -69,7 +74,9 @@ class TurnoController extends Controller
      */
     public function update(Request $request, Turno $turno)
     {
-        //
+        $turno->update($request->except('_token'));
+
+        return redirect()->route('turno.index')->withStatus(__('Turno atualizado com sucesso.'));
     }
 
     /**
@@ -80,6 +87,8 @@ class TurnoController extends Controller
      */
     public function destroy(Turno $turno)
     {
-        //
+        $turno->delete();
+
+        return redirect()->route('turno.index')->withStatus(__('Turno deletado com sucesso.'));
     }
 }

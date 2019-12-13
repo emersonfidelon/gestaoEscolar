@@ -10,7 +10,7 @@
                             <h4 class="card-title">{{ __('Turnos') }}</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar turno') }}</a>
+                            <a href="{{ route('turno.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
                         </div>
                     </div>
                 </div>
@@ -34,19 +34,15 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    @if (auth()->turno()->id != $turno->id)
-                                                        <form action="{{ route('turno.destroy', $turno) }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
+                                                    <form action="{{ route('turno.destroy', $turno) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
 
-                                                            <a class="dropdown-item" href="{{ route('turno.edit', $turno) }}">{{ __('Editar') }}</a>
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this turno?") }}') ? this.parentElement.submit() : ''">
-                                                                        {{ __('Excluir') }}
-                                                            </button>
-                                                        </form>
-                                                    @else
-                                                        <a class="dropdown-item" href="{{ route('turno.edit') }}">{{ __('Editar') }}</a>
-                                                    @endif
+                                                        <a class="dropdown-item" href="{{ route('turno.edit', $turno) }}">{{ __('Editar') }}</a>
+                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja deletar este turno?") }}') ? this.parentElement.submit() : ''">
+                                                                    {{ __('Excluir') }}
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </td>
