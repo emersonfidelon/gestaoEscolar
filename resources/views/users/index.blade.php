@@ -13,7 +13,7 @@
                             <h4 class="card-title">{{ __('Usuários') }}</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar usuário') }}</a>
+                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                                                 @method('delete')
 
                                                                 <a class="dropdown-item" href="{{ route('user.edit', $user) }}">{{ __('Editar') }}</a>
-                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
+                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja excluir o registro?") }}') ? this.parentElement.submit() : ''">
                                                                             {{ __('Excluir') }}
                                                                 </button>
                                                             </form>
