@@ -10,7 +10,7 @@
                             <h4 class="card-title">{{ __('Alunos') }}</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar aluno') }}</a>
+                            <a href="{{ route('aluno.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                             <tbody>
                                 @foreach ($alunos as $aluno)
                                     <tr>
-                                        <td>{{ $aluno->name }}</td>
+                                        <td>{{ $aluno->nome }}</td>
 
                                         <td class="text-right">
                                             <div class="dropdown">
@@ -34,19 +34,17 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    @if (auth()->aluno()->id != $aluno->id)
+                                                    
                                                         <form action="{{ route('aluno.destroy', $aluno) }}" method="post">
                                                             @csrf
                                                             @method('delete')
 
                                                             <a class="dropdown-item" href="{{ route('aluno.edit', $aluno) }}">{{ __('Editar') }}</a>
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this aluno?") }}') ? this.parentElement.submit() : ''">
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja excluir esse aluno?") }}') ? this.parentElement.submit() : ''">
                                                                         {{ __('Excluir') }}
                                                             </button>
                                                         </form>
-                                                    @else
-                                                        <a class="dropdown-item" href="{{ route('aluno.edit') }}">{{ __('Editar') }}</a>
-                                                    @endif
+                                                    
                                                 </div>
                                             </div>
                                         </td>

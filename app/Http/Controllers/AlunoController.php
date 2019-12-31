@@ -24,7 +24,7 @@ class AlunoController extends Controller
      */
     public function create()
     {
-        //
+        return view('alunos.create');
     }
 
     /**
@@ -33,9 +33,39 @@ class AlunoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Aluno $model)
     {
-        //
+        $data = $request->except('_token');
+
+        // Valida os campos de CPF obrigatórios
+        $this->validate($request, [
+            'cpf' => 'required|cpf',
+            'cpf_mae' => 'required|cpf',
+        ]);
+
+        //Valida CPF do pai caso seja preenchido
+        if($request->has('cpf_pai') && !empty($request->cpf_pai)){
+            $this->validate($request, ['cpf_pai' => 'cpf']);
+        }
+
+        //Valida CPF do responsavel caso seja preenchido
+        if($request->has('cpf_responsavel') && !empty($request->cpf_responsavel)){
+            $this->validate($request, ['cpf_responsavel' => 'cpf']);
+        }
+
+        //Valida certidao de nascimento caso seja preenchido
+        if($request->has('certidao') && !empty($request->certidao)){
+            $this->validate($request, ['certidao' => 'certidao']);
+        }
+
+        // Validação para não inserir alunos com cpf duplicado
+        $exists = $model::where('cpf',$request->input('cpf'));
+        if($exists->count() > 0){
+            return redirect()->route('aluno.create')->withStatus(['error' => 'Já existe um registro com este CPF.']);
+        }
+
+        $model->create($data);
+        return redirect()->route('aluno.index')->withStatus(['success' => 'Registro criado com sucesso!']);
     }
 
     /**
@@ -57,7 +87,7 @@ class AlunoController extends Controller
      */
     public function edit(Aluno $aluno)
     {
-        //
+        return view('alunos.edit', compact('aluno'));
     }
 
     /**
@@ -69,7 +99,31 @@ class AlunoController extends Controller
      */
     public function update(Request $request, Aluno $aluno)
     {
-        //
+        
+        // Valida os campos de CPF obrigatórios
+        $this->validate($request, [
+            'cpf' => 'required|cpf',
+            'cpf_mae' => 'required|cpf',
+        ]);
+
+        //Valida CPF do pai caso seja preenchido
+        if($request->has('cpf_pai') && !empty($request->cpf_pai)){
+            $this->validate($request, ['cpf_pai' => 'cpf']);
+        }
+
+        //Valida CPF do responsavel caso seja preenchido
+        if($request->has('cpf_responsavel') && !empty($request->cpf_responsavel)){
+            $this->validate($request, ['cpf_responsavel' => 'cpf']);
+        }
+
+        //Valida certidao de nascimento caso seja preenchido
+        if($request->has('certidao') && !empty($request->certidao)){
+            $this->validate($request, ['certidao' => 'certidao']);
+        }
+
+        $aluno->update($request->except('_token'));
+
+        return redirect()->route('aluno.index')->withStatus(['success' => __('Registro atualizado com sucesso.')]);
     }
 
     /**
@@ -80,6 +134,8 @@ class AlunoController extends Controller
      */
     public function destroy(Aluno $aluno)
     {
-        //
+        $aluno->delete();
+
+        return redirect()->route('aluno.index')->withStatus(['success' => __($aluno->nome.' deletado com sucesso.')]);
     }
 }
