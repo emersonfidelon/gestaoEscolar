@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Turma;
 use App\Serie;
 use App\Turno;
+use App\AnoLetivo;
 use Illuminate\Http\Request;
 
 class TurmaController extends Controller
@@ -26,9 +27,14 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        $turnos = Turno::all();
+        $anosletivos = AnoLetivo::all();
         $series = Serie::all();
-        return view('turmas.create', compact('turnos'), compact('series'));
+        $turnos = Turno::all();
+        return view('turmas.create', [
+            'anosletivos' => $anosletivos,
+            'series' => $series,
+            'turnos' => $turnos
+        ]);
     }
 
     /**
@@ -66,12 +72,14 @@ class TurmaController extends Controller
      */
     public function edit(Turma $turma)
     {
+        $anosletivos = AnoLetivo::all();
         $turnos = Turno::all();
         $series = Serie::all();
         return view('turmas.edit', [
             'turma' => $turma,
             'turnos' => $turnos,
-            'series' => $series
+            'series' => $series,
+            'anosletivos' => $anosletivos
         ]);
     }
 

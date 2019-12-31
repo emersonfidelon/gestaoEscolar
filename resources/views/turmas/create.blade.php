@@ -19,10 +19,14 @@
                         <form method="post" action="{{ route('turma.store') }}" autocomplete="off">
                             @csrf
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Nome') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Ex.: A') }}" value="{{ old('name') }}" required autofocus>
-                                    @include('alerts.feedback', ['field' => 'name'])
+                                <div class="form-group">
+                                    <label class="form-control-label">{{ __('Ano Letivo') }}</label>
+                                    <select name="ano_letivo_id" required class="form-control" id="">
+                                        <option value="">Selecione um ano</option>
+                                        @foreach ($anosletivos as $anoletivo)
+                                            <option value="{{ $anoletivo->id }}">{{ $anoletivo->descricao }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">{{ __('Série') }}</label>
@@ -41,6 +45,13 @@
                                             <option value="{{ $turno->id }}">{{ $turno->name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Nome') }}</label>
+                                    <input type="text" name="name" id="input-name" 
+                                    class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" 
+                                    placeholder="{{ __('Ex.: A - 2019') }}" value="{{ old('name') }}" required autofocus>
+                                    @include('alerts.feedback', ['field' => 'name'])
                                 </div>
 
                                 <div class="text-center">
