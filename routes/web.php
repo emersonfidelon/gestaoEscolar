@@ -41,4 +41,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('turma', 'TurmaController');
     Route::resource('aluno', 'AlunoController');
     Route::resource('matricula', 'MatriculaController');
+    Route::resource('anoletivo', 'AnoLetivoController');
 });

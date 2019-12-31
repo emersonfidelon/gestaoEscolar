@@ -26,6 +26,12 @@
                                 <p>{{ _('Usuários') }}</p>
                             </a>
                         </li>
+                        <li @if ($pageSlug == 'anoletivo') class="active " @endif>
+                            <a href="{{ route('anoletivo.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ _('Anos Letivos') }}</p>
+                            </a>
+                        </li>
                         <li @if ($pageSlug == 'turnos') class="active " @endif>
                             <a href="{{ route('turno.index')  }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
