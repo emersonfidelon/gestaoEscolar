@@ -21,12 +21,14 @@
                         <table class="table tablesorter " id="">
                             <thead class=" text-primary">
                                 <th scope="col">{{ __('Nome') }}</th>
+                                <th scope="col">{{ __('Ano Letivo') }}</th>
                                 <th scope="col"></th>
                             </thead>
                             <tbody>
                                 @foreach ($series as $serie)
                                     <tr>
                                         <td>{{ $serie->name }}</td>
+                                        <td>{{ $serie->anoletivo->descricao }}</td>
 
                                         <td class="text-right">
                                                 <div class="dropdown">

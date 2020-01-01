@@ -23,14 +23,16 @@
                                 <th scope="col">{{ __('Nome') }}</th>
                                 <th scope="col">{{ __('Serie') }}</th>
                                 <th scope="col">{{ __('Turno') }}</th>
+                                <th scope="col">{{ __('Ano Letivo') }}</th>
                                 <th scope="col"></th>
                             </thead>
                             <tbody>
                                 @foreach ($turmas as $turma)
                                     <tr>
-                                        <td>{{ $turma->name }}</td>
+                                        <td>{{ $turma->fullDescription() }}</td>
                                         <td>{{ $turma->serie->name }}</td>
                                         <td>{{ $turma->turno->name }}</td>
+                                        <td>{{ $turma->anoletivo->descricao }}</td>
                                         <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

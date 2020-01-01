@@ -17,7 +17,7 @@ class TurmaController extends Controller
      */
     public function index(Turma $model)
     {
-        return view('turmas.index', ['turmas' => $model->with('serie')->with('turno')->paginate(15)]);
+        return view('turmas.index', ['turmas' => $model->with('serie')->with('turno')->with('anoletivo')->paginate(15)]);
     }
 
     /**

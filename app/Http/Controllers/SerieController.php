@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Serie;
+use App\AnoLetivo;
 use Illuminate\Http\Request;
 
 class SerieController extends Controller
@@ -14,7 +15,7 @@ class SerieController extends Controller
      */
     public function index(Serie $model)
     {
-        return view('series.index', ['series' => $model->paginate(15)]);
+        return view('series.index', ['series' => $model->with('anoletivo')->paginate(15)]);
     }
 
     /**
@@ -24,7 +25,8 @@ class SerieController extends Controller
      */
     public function create()
     {
-        return view('series.create');
+        $anosletivos = AnoLetivo::all();
+        return view('series.create', compact('anosletivos'));
     }
 
     /**
@@ -62,7 +64,8 @@ class SerieController extends Controller
      */
     public function edit(Serie $serie)
     {
-        return view('series.edit', compact('serie'));
+        $anosletivos = AnoLetivo::all();
+        return view('series.edit', compact('serie'), compact('anosletivos'));
     }
 
     /**
