@@ -10,7 +10,7 @@
                             <h4 class="card-title">{{ __('Matrículas') }}</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar matrícula') }}</a>
+                            <a href="{{ route('matricula.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
                         </div>
                     </div>
                 </div>
@@ -20,13 +20,17 @@
                     <div class="">
                         <table class="table tablesorter " id="">
                             <thead class=" text-primary">
+                                <th scope="col">{{ __('Cod. Matrícula') }}</th>
                                 <th scope="col">{{ __('Nome') }}</th>
+                                <th scope="col">{{ __('Enturmação') }}</th>
                                 <th scope="col"></th>
                             </thead>
                             <tbody>
                                 @foreach ($matriculas as $matricula)
                                     <tr>
-                                        <td>{{ $matricula->name }}</td>
+                                        <td>{{ $matricula->codmatricula }}</td>
+                                        <td>{{ $matricula->aluno->nome }}</td>
+                                        <td>{{ $matricula->turma->fullDescription() }}</td>
 
                                         <td class="text-right">
                                             <div class="dropdown">
@@ -34,19 +38,17 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    @if (auth()->matricula()->id != $matricula->id)
-                                                        <form action="{{ route('matricula.destroy', $matricula) }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
+                                                    
+                                                    <form action="{{ route('matricula.destroy', $matricula) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
 
-                                                            <a class="dropdown-item" href="{{ route('matricula.edit', $matricula) }}">{{ __('Editar') }}</a>
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this matricula?") }}') ? this.parentElement.submit() : ''">
-                                                                        {{ __('Excluir') }}
-                                                            </button>
-                                                        </form>
-                                                    @else
-                                                        <a class="dropdown-item" href="{{ route('matricula.edit') }}">{{ __('Editar') }}</a>
-                                                    @endif
+                                                        <a class="dropdown-item" href="{{ route('matricula.edit', $matricula) }}">{{ __('Editar') }}</a>
+                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this matricula?") }}') ? this.parentElement.submit() : ''">
+                                                                    {{ __('Excluir') }}
+                                                        </button>
+                                                    </form>
+                                                    
                                                 </div>
                                             </div>
                                         </td>

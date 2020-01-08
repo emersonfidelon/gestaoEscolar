@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('Cadastrar Anos Letivos'), 'pageSlug' => 'anosletivos'])
+@extends('layouts.app', ['page' => __('Cadastrar Anos Letivos'), 'pageSlug' => 'anoletivo'])
 
 @section('content')
     <div class="container-fluid mt--7">

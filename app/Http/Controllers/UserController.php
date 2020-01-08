@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Enums\UserLevel;
 
 class UserController extends Controller
 {
@@ -16,7 +17,9 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        return view('users.index', [
+            'users' => $model->paginate(15)
+        ]);
     }
 
     /**
@@ -40,7 +43,7 @@ class UserController extends Controller
     {
         $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
 
-        return redirect()->route('user.index')->withStatus(__('Usuário creado com sucesso.'));
+        return redirect()->route('user.index')->withStatus(__('Usuário criado com sucesso.'));
     }
 
     /**

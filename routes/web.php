@@ -42,4 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('aluno', 'AlunoController');
     Route::resource('matricula', 'MatriculaController');
     Route::resource('anoletivo', 'AnoLetivoController');
+    Route::resource('content', 'ContentController');
+    Route::resource('frequency', 'FrequencyController');
+    Route::resource('enturmacao', 'EnturmacaoController');
+    Route::resource('message', 'MessageController');
+    Route::resource('financy', 'FinancyController');
 });

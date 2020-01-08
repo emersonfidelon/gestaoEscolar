@@ -35,16 +35,4 @@ class Aluno extends Model
         'cidade',
         'estado'
     ];
-
-    // Mutator que formata a data para salvar no banco
-    public function setDataNascimentoAttribute($value)
-    {
-        $this->attributes['data_nascimento'] = Carbon::parse($value)->format('Y-m-d');
-    }
-
-    // Mutator que formata a data para exibir no campo ou no tela
-    public function getDataNascimentoAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y');
-    }
 }

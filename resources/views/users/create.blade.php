@@ -31,6 +31,16 @@
                                     <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required>
                                     @include('alerts.feedback', ['field' => 'email'])
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">{{ __('Nível de acesso') }}</label>
+                                    <select name="nivel" required class="form-control" id="">
+                                        <option value="">Selecione...</option>
+                                        <option value="0">Familiares</option>
+                                        <option value="1">Pedagógico</option>
+                                        <option value="2">Administrativo</option>
+                                        <option value="3">Gestor</option>
+                                    </select>
+                                </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-password">{{ __('Senha') }}</label>
                                     <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Senha') }}" value="" required>

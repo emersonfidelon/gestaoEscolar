@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('Cadastrar Matrícula'), 'pageSlug' => 'matriculas'])
+@extends('layouts.app', ['page' => __('Editar Turma'), 'pageSlug' => 'turmas'])
 
 @section('content')
     <div class="container-fluid mt--7">
@@ -8,55 +8,51 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Cadastrar Matrícula') }}</h3>
+                                <h3 class="mb-0">{{ __('Editar Turma') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('matricula.index') }}" class="btn btn-sm btn-primary">{{ __('Voltar') }}</a>
+                                <a href="{{ route('turma.index') }}" class="btn btn-sm btn-primary">{{ __('Voltar') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        @include('alerts.success')
-                        <form method="post" action="{{ route('matricula.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('turma.update', $turma) }}" autocomplete="off">
                             @csrf
+                            @method('put')
                             <div class="pl-lg-4">
-                                <div class="form-group">
-                                    <label class="form-control-label">{{ __('Aluno') }}</label>
-                                    <select name="aluno_id" required class="form-control" id="">
-                                        <option value="">Selecione um aluno</option>
-                                        @foreach ($alunos as $aluno)
-                                            <option value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <div class="form-group">
                                     <label class="form-control-label">{{ __('Ano Letivo') }}</label>
                                     <select name="ano_letivo_id" required class="form-control" id="">
                                         <option value="">Selecione um ano</option>
                                         @foreach ($anosletivos as $anoletivo)
-                                            <option value="{{ $anoletivo->id }}">{{ $anoletivo->descricao }}</option>
+                                            <option {{ $turma->ano_letivo_id === $anoletivo->id ? 'selected' : '' }} value="{{ $anoletivo->id }}">{{ $anoletivo->descricao }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Nome') }}</label>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Ex.: A') }}"
+                                    value="{{ old('name', $turma->name) }}"  required autofocus>
+                                    @include('alerts.feedback', ['field' => 'name'])
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">{{ __('Série') }}</label>
                                     <select name="serie_id" required class="form-control" id="">
                                         <option value="">Selecione uma série</option>
                                         @foreach ($series as $serie)
-                                            <option value="{{ $serie->id }}">{{ $serie->name }}</option>
+                                            <option {{ $turma->serie_id === $serie->id ? 'selected' : '' }} value="{{ $serie->id }}">{{ $serie->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-control-label">{{ __('Série') }}</label>
-                                    <select name="turma_id" required class="form-control" id="">
-                                        <option value="">Selecione uma turma</option>
-                                        @foreach ($turmas as $turma)
-                                            <option value="{{ $turma->id }}">{{ $turma->fullDescription() }}</option>
+                                    <label class="form-control-label">{{ __('Turno') }}</label>
+                                    <select name="turno_id" required class="form-control" id="">
+                                        <option value="">Selecione um turno</option>
+                                        @foreach ($turnos as $turno)
+                                            <option {{ $turma->turno_id === $turno->id ? 'selected' : '' }} value="{{ $turno->id }}">{{ $turno->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                
 
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Salvar') }}</button>

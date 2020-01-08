@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Matricula;
+use App\Aluno;
+use App\AnoLetivo;
+use App\Turma;
+use App\Serie;
 use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
@@ -14,7 +18,7 @@ class MatriculaController extends Controller
      */
     public function index(Matricula $model)
     {
-        return view('matriculas.index', ['matriculas' => $model->paginate(15)]);
+        return view('matriculas.index', ['matriculas' => $model->with('aluno')->with('anoletivo')->with('turma')->with('serie')->paginate(15)]);
     }
 
     /**
@@ -24,7 +28,17 @@ class MatriculaController extends Controller
      */
     public function create()
     {
-        //
+        $anosletivos = AnoLetivo::all();
+        $turmas = Turma::all();
+        $alunos = Aluno::all();
+        $series = Serie::all();
+
+        return view('matriculas.create', [
+            'anosletivos' => $anosletivos,
+            'alunos' => $alunos,
+            'series' => $series,
+            'turmas' => $turmas
+        ]);
     }
 
     /**
@@ -33,9 +47,17 @@ class MatriculaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Matricula $model)
     {
-        //
+        $exists = $model::where('aluno_id',$request->input('aluno_id'))->where('ano_letivo_id',$request->input('ano_letivo_id'));
+        if($exists->count() > 0){
+            return redirect()->route('matricula.create')->withStatus(['error' => "ERRO. O aluno já está matriculado no ano letivo indicado"]);
+        }
+        $dados = $request->except('_token');
+        $ano = AnoLetivo::find($request->ano_letivo_id);
+        $dados['codmatricula'] = "{$request->aluno_id}{$ano->descricao}";
+        $model->create($dados);
+        return redirect()->route('matricula.index')->withStatus(['success' => 'Registro criado com sucesso!']);
     }
 
     /**

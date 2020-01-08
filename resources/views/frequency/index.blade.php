@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('Gerenciar Anos Letivos'), 'pageSlug' => 'anoletivo'])
+@extends('layouts.app', ['page' => __('Gerenciar Frequencias'), 'pageSlug' => 'frequency'])
 
 @section('content')
     <div class="row">
@@ -7,10 +7,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="card-title">{{ __('Anos Letivos') }}</h4>
+                            <h4 class="card-title">{{ __('Frequencia') }}</h4>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('anoletivo.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
+                            <a href="{{ route('frequency.create') }}" class="btn btn-sm btn-primary">{{ __('Adicionar') }}</a>
                         </div>
                     </div>
                 </div>
@@ -20,19 +20,17 @@
                     <div class="">
                         <table class="table tablesorter " id="">
                             <thead class=" text-primary">
-                                <th scope="col">{{ __('Ano') }}</th>
-                                <th scope="col">{{ __('Dias Letivos') }}</th>
-                                <th scope="col">{{ __('Inicio') }}</th>
-                                <th scope="col">{{ __('Fim') }}</th>
+                                <th scope="col">{{ __('Data') }}</th>
+                                <th scope="col">{{ __('Presentes') }}</th>
+                                <th scope="col">{{ __('Ausentes') }}</th>
                                 <th scope="col"></th>
                             </thead>
                             <tbody>
-                                @foreach ($anosletivos as $anoletivo)
+                                @foreach ($frequencies as $frequency)
                                     <tr>
-                                        <td>{{ $anoletivo->descricao }}</td>
-                                        <td>{{ $anoletivo->dias_letivos }}</td>
-                                        <td>{{ $anoletivo->dt_inicio }}</td>
-                                        <td>{{ $anoletivo->dt_fim }}</td>
+                                        <td>{{ $frequency->professor_id }}</td>
+                                        <td>{{ $frequency->turma_id }}</td>
+                                        <td>{{ $frequency->matricula_id }}</td>
 
                                         <td class="text-right">
                                                 <div class="dropdown">
@@ -40,17 +38,15 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-
-                                                        <form action="{{ route('anoletivo.destroy', $anoletivo->id) }}" method="post">
+                                                        <form action="{{ route('frequency.destroy', $frequency) }}" method="post">
                                                             @csrf
                                                             @method('delete')
 
-                                                            <a class="dropdown-item" href="{{ route('anoletivo.edit', $anoletivo) }}">{{ __('Editar') }}</a>
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja excluir o registro?") }}') ? this.parentElement.submit() : ''">
+                                                            <a class="dropdown-item" href="{{ route('frequency.edit', $frequency) }}">{{ __('Editar') }}</a>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Tem certeza que deseja excluir esse conteúdo?") }}') ? this.parentElement.submit() : ''">
                                                                         {{ __('Excluir') }}
                                                             </button>
                                                         </form>
-
                                                     </div>
                                                 </div>
                                         </td>
@@ -62,7 +58,7 @@
                 </div>
                 <div class="card-footer py-4">
                     <nav class="d-flex justify-content-end" aria-label="...">
-                        {{ $anosletivos->links() }}
+                        {{ $frequencies->links() }}
                     </nav>
                 </div>
             </div>

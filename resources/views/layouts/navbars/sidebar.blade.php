@@ -62,6 +62,30 @@
                                 <p>{{ _('Matriculas') }}</p>
                             </a>
                         </li>
+                        <li @if ($pageSlug == 'enturmacao') class="active " @endif>
+                            <a href="{{ route('enturmacao.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ _('Enturmação') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#financeiro">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span class="nav-link-text" >{{ __('Financeiro') }}</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse show" id="financeiro">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'content') class="active " @endif>
+                            <a href="{{ route('financy.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ _('Boletos') }}</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -74,14 +98,14 @@
 
                 <div class="collapse show" id="pedagogico">
                     <ul class="nav pl-4">
-                        <li @if ($pageSlug == 'users') class="active " @endif>
-                            <a href="{{ route('user.index')  }}">
+                        <li @if ($pageSlug == 'content') class="active " @endif>
+                            <a href="{{ route('content.index')  }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
                                 <p>{{ _('Conteúdo') }}</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug == 'users') class="active " @endif>
-                            <a href="{{ route('user.index')  }}">
+                        <li @if ($pageSlug == 'frequency') class="active " @endif>
+                            <a href="{{ route('frequency.index')  }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
                                 <p>{{ _('Frequência') }}</p>
                             </a>

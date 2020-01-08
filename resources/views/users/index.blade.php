@@ -38,7 +38,7 @@
                                         </td>
                                         <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
-                                            {{ $tipos[random_int(0,2)] }}
+                                            {{ App\Enums\UserLevel::getInstance($user->nivel)->key }}
                                         </td>
                                         <td class="text-right">
                                                 <div class="dropdown">

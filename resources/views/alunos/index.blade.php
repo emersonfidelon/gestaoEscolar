@@ -21,12 +21,16 @@
                         <table class="table tablesorter " id="">
                             <thead class=" text-primary">
                                 <th scope="col">{{ __('Nome') }}</th>
+                                <th scope="col">{{ __('Data Nascimento') }}</th>
+                                <th scope="col">{{ __('Mãe') }}</th>
                                 <th scope="col"></th>
                             </thead>
                             <tbody>
                                 @foreach ($alunos as $aluno)
                                     <tr>
                                         <td>{{ $aluno->nome }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($aluno->data_nascimento)) }}</td>
+                                        <td>{{ $aluno->mae }}</td>
 
                                         <td class="text-right">
                                             <div class="dropdown">

@@ -44,7 +44,7 @@
                                         <div class="form-group{{ $errors->has('data_nascimento') ? ' has-danger' : '' }}">
                                             <label class="form-control-label" for="input-data_nascimento">{{ __('Data de nascimento') }}*</label>
                                             <small>(Digite apenas números)</small>
-                                            <input type="text" name="data_nascimento" id="input-data_nascimento" 
+                                            <input type="date" name="data_nascimento" id="input-data_nascimento" 
                                                 class="form-control form-control-alternative{{ $errors->has('data_nascimento') ? ' is-invalid' : '' }}" 
                                                 placeholder="{{ __('dd/mm/aaaa') }}" value="{{ old('data_nascimento') }}" 
                                                 required
